@@ -1,0 +1,488 @@
+ /* ===============================
+           RESET Y FUENTE
+        ================================= */
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+
+ body {
+     font-family: 'Poppins', sans-serif;
+     background-color: #f4f7f6;
+     color: #333;
+     padding-top: 80px;
+     overflow-x: hidden;
+ }
+
+ /* ===============================
+           MENÚ DE NAVEGACIÓN SUPERIOR
+        ================================= */
+ .main-header {
+     width: 100%;
+     background-color: #ffffff;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+     padding: 15px 0;
+     position: fixed;
+     top: 0;
+     left: 0;
+     z-index: 1000;
+ }
+
+ .nav-container {
+     max-width: 1200px;
+     margin: 0 auto;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 0 20px;
+ }
+
+ .logo {
+     font-size: 1.6em;
+     font-weight: 700;
+     color: #333;
+ }
+
+ .logo strong {
+     color: #007bff;
+ }
+
+ .main-header nav ul {
+     list-style: none;
+     display: flex;
+     align-items: center;
+     gap: 25px;
+ }
+
+ .main-header nav a {
+     text-decoration: none;
+     color: #555;
+     font-weight: 500;
+     transition: color 0.3s ease;
+     cursor: pointer;
+ }
+
+ .main-header nav a:hover,
+ .main-header nav a.active {
+     color: #007bff;
+ }
+
+ .nav-button {
+     background-color: #007bff;
+     color: #fff !important;
+     padding: 8px 16px;
+     border-radius: 6px;
+     transition: background-color 0.3s ease;
+ }
+
+ .nav-button:hover {
+     background-color: #0056b3;
+ }
+
+ /* ===============================
+           VISTA DE INICIO (MAPA COMPLETO)
+        ================================= */
+ .home-view {
+     width: 100%;
+     height: calc(100vh - 80px);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: opacity 0.5s ease;
+ }
+
+ .home-view.hidden {
+     display: none;
+     opacity: 0;
+ }
+
+ #mapHome {
+     width: 100%;
+     height: 100%;
+ }
+
+ /* ===============================
+           VISTA DE AYUDA (FORMULARIO + MAPA)
+        ================================= */
+ .help-view {
+     display: none;
+     max-width: 1400px;
+     margin: 20px auto;
+     padding: 0 20px;
+     opacity: 0;
+     animation: fadeIn 0.6s ease forwards;
+ }
+
+ .help-view.active {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 30px;
+     align-items: start;
+ }
+
+ @keyframes fadeIn {
+     to {
+         opacity: 1;
+     }
+ }
+
+ /* FORMULARIO */
+ .form-container {
+     background-color: #ffffff;
+     border-radius: 10px;
+     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+     padding: 40px;
+     animation: slideInLeft 0.6s ease;
+ }
+
+ @keyframes slideInLeft {
+     from {
+         transform: translateX(-50px);
+         opacity: 0;
+     }
+
+     to {
+         transform: translateX(0);
+         opacity: 1;
+     }
+ }
+
+ /* MAPA DERECHA */
+ .map-container {
+     animation: slideInRight 0.6s ease;
+     display: flex;
+     flex-direction: column;
+ }
+
+ @keyframes slideInRight {
+     from {
+         transform: translateX(50px);
+         opacity: 0;
+     }
+
+     to {
+         transform: translateX(0);
+         opacity: 1;
+     }
+ }
+
+ .map-wrapper {
+     border-radius: 10px;
+     overflow: hidden;
+     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+     margin-bottom: 30px;
+     position: relative;
+ }
+
+ #mapForm {
+     width: 100%;
+     height: 600px;
+     border-radius: 10px;
+ }
+
+ /* TABLA DE CASOS */
+ .casos-section {
+     background-color: #ffffff;
+     border-radius: 10px;
+     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+     padding: 30px;
+     margin-top: 20px;
+ }
+
+ .casos-section h2 {
+     color: #0056b3;
+     font-size: 1.5em;
+     margin-bottom: 20px;
+     padding-bottom: 10px;
+     border-bottom: 2px solid #007bff;
+ }
+
+ .table-wrapper {
+     overflow-x: auto;
+ }
+
+ #listaCasosTabla {
+     width: 100%;
+     border-collapse: collapse;
+     margin-top: 15px;
+ }
+
+ #listaCasosTabla thead {
+     background-color: #007bff;
+     color: white;
+ }
+
+ #listaCasosTabla th {
+     padding: 12px;
+     text-align: left;
+     font-weight: 600;
+     font-size: 0.9em;
+ }
+
+ #listaCasosTabla tbody tr {
+     border-bottom: 1px solid #e9ecef;
+     transition: background-color 0.2s ease;
+ }
+
+ #listaCasosTabla tbody tr:hover {
+     background-color: #f8f9fa;
+ }
+
+ #listaCasosTabla td {
+     padding: 12px;
+     font-size: 0.9em;
+     color: #495057;
+ }
+
+ #listaCasosTabla tbody tr:last-child {
+     border-bottom: none;
+ }
+
+ .empty-state {
+     text-align: center;
+     padding: 40px 20px;
+     color: #6c757d;
+ }
+
+ .empty-state i {
+     font-size: 3em;
+     color: #dee2e6;
+     margin-bottom: 15px;
+ }
+
+ .empty-state p {
+     font-size: 1.1em;
+ }
+
+ /* Indicador de coordenadas */
+ .coordinates-display {
+     background-color: #f8f9fa;
+     padding: 12px;
+     border-radius: 6px;
+     margin-bottom: 15px;
+     border: 1px solid #dee2e6;
+     text-align: center;
+     font-weight: 500;
+     color: #495057;
+ }
+
+ .coordinates-display i {
+     color: #007bff;
+     margin-right: 8px;
+ }
+
+ /* CABECERA INTERNA */
+ .form-header {
+     text-align: center;
+     margin-bottom: 30px;
+     border-bottom: 1px solid #eee;
+     padding-bottom: 20px;
+ }
+
+ .form-header h1 {
+     color: #333;
+     font-size: 1.8em;
+     margin-bottom: 5px;
+ }
+
+ .form-header p {
+     color: #555;
+     font-size: 1.1em;
+ }
+
+ /* TÍTULOS DE SECCIÓN */
+ .form-section-header {
+     font-size: 1.3em;
+     color: #0056b3;
+     margin: 30px 0 20px 0;
+     padding-bottom: 5px;
+     border-bottom: 2px solid #007bff;
+     display: block;
+ }
+
+ /* ===============================
+           GRUPOS DE INPUTS
+        ================================= */
+ .input-group {
+     margin-bottom: 20px;
+ }
+
+ .input-group label {
+     display: block;
+     font-weight: 600;
+     margin-bottom: 8px;
+     color: #333;
+     font-size: 0.95em;
+ }
+
+ .input-group label i {
+     margin-right: 8px;
+     color: #007bff;
+     width: 20px;
+     text-align: center;
+ }
+
+ .input-group input[type="text"],
+ .input-group input[type="email"],
+ .input-group input[type="tel"],
+ .input-group input[type="number"],
+ .input-group input[type="file"],
+ .input-group textarea,
+ .input-group select {
+     width: 100%;
+     padding: 12px 15px;
+     border: 1px solid #ddd;
+     border-radius: 6px;
+     font-size: 0.95em;
+     font-family: 'Poppins', sans-serif;
+     background-color: #fdfdfd;
+     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+ }
+
+ .input-group input:focus,
+ .input-group textarea:focus,
+ .input-group select:focus {
+     outline: none;
+     border-color: #007bff;
+     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+ }
+
+ .input-group textarea {
+     resize: vertical;
+     min-height: 80px;
+ }
+
+ .input-group input[type="file"] {
+     padding: 8px;
+ }
+
+ .input-group input[type="file"]::file-selector-button {
+     font-family: 'Poppins', sans-serif;
+     font-weight: 500;
+     padding: 8px 12px;
+     border-radius: 5px;
+     border: none;
+     background-color: #e9ecef;
+     color: #333;
+     cursor: pointer;
+     margin-right: 10px;
+     transition: background-color 0.3s ease;
+ }
+
+ .input-group input[type="file"]::file-selector-button:hover {
+     background-color: #dee2e6;
+ }
+
+ /* CHECKBOXES */
+ .checkbox-container {
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     margin-top: 10px;
+     color: #444;
+ }
+
+ .checkbox-container label {
+     font-weight: 500;
+     display: flex;
+     align-items: center;
+     cursor: pointer;
+ }
+
+ .checkbox-container input[type="checkbox"] {
+     margin-right: 10px;
+     width: 16px;
+     height: 16px;
+     accent-color: #007bff;
+ }
+
+ /* BOTÓN DE ENVÍO */
+ .btn-submit {
+     width: 100%;
+     padding: 14px;
+     font-family: 'Poppins', sans-serif;
+     font-size: 1.1em;
+     font-weight: 600;
+     color: #fff;
+     background-color: #007bff;
+     border: none;
+     border-radius: 6px;
+     cursor: pointer;
+     transition: background-color 0.3s ease, transform 0.2s ease;
+     margin-top: 20px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 10px;
+ }
+
+ .btn-submit:hover {
+     background-color: #0056b3;
+     transform: translateY(-2px);
+ }
+
+ /* Instrucción para el mapa */
+ .map-instruction {
+     background-color: #e7f3ff;
+     border-left: 4px solid #007bff;
+     padding: 12px;
+     margin-bottom: 15px;
+     border-radius: 4px;
+     font-size: 0.9em;
+ }
+
+ /* ===============================
+           RESPONSIVE
+        ================================= */
+ @media (max-width: 1024px) {
+     .help-view.active {
+         grid-template-columns: 1fr;
+     }
+
+     .map-container {
+         position: relative;
+         top: 0;
+     }
+
+     .map-wrapper {
+         position: relative;
+     }
+
+     #mapForm {
+         height: 400px;
+     }
+ }
+
+ @media (max-width: 768px) {
+     .nav-container {
+         flex-direction: column;
+         gap: 10px;
+     }
+
+     .main-header nav ul {
+         gap: 15px;
+         flex-wrap: wrap;
+         justify-content: center;
+     }
+
+     body {
+         padding-top: 140px;
+     }
+
+     .form-container {
+         padding: 25px;
+     }
+
+     .form-header h1 {
+         font-size: 1.5em;
+     }
+
+     #mapHome {
+         height: calc(100vh - 140px);
+     }
+
+     #mapForm {
+         height: 350px;
+     }
+ }

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Apoyo - Patas Conectatech</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="estilossoli.css">
+
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div class="nav-container">
+            <div class="logo">Patas<strong>Conecta</strong>tech</div>
+            <nav>
+                <ul>
+                    <li><a href="#" id="navInicio" class="active">Inicio</a></li>
+                    <li><a href="#" id="navAyuda">Registrar Caso</a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="index.html" class="nav-button">Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="home-view" id="homeView">
+        <div id="mapHome"></div>
+    </div>
+
+    <div class="help-view" id="helpView">
+        
+        <div class="form-container">
+            <div class="form-header">
+                <h1>Formulario de Solicitud de Apoyo</h1>
+                <p>Completa los datos para procesar tu solicitud.</p>
+            </div>
+
+            <form id="formSolicitud" action="#" method="POST">
+
+                <h3 class="form-section-header">1. Datos del Solicitante</h3>
+
+                <div class="input-group">
+                    <label for="nombre"><i class="fa-solid fa-user"></i> Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre completo" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="edad"><i class="fa-solid fa-id-card"></i> Edad</label>
+                    <input type="number" id="edad" name="edad" placeholder="Tu edad (mínimo 18)" min="18" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="direccion"><i class="fa-solid fa-map-location-dot"></i> Dirección completa</label>
+                    <textarea id="direccion" name="direccion" placeholder="Calle, número, colonia, C.P., ciudad" rows="3" required></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="telefono"><i class="fa-solid fa-phone"></i> Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Tu número de teléfono" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email"><i class="fa-solid fa-envelope"></i> Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="Tu correo electrónico" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="vivienda"><i class="fa-solid fa-house"></i> Tipo de vivienda</label>
+                    <select id="vivienda" name="vivienda" required>
+                        <option value="" disabled selected>Selecciona tu tipo de vivienda</option>
+                        <option value="casa_patio_grande">Casa con patio grande</option>
+                        <option value="casa_patio_pequeno">Casa con patio pequeño</option>
+                        <option value="casa_sin_patio">Casa sin patio</option>
+                        <option value="departamento">Departamento</option>
+                        <option value="terreno">Terreno / Lote</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="experiencia"><i class="fa-solid fa-book-open"></i> Experiencia previa con animales</label>
+                    <textarea id="experiencia" name="experiencia" placeholder="¿Has tenido mascotas antes? ¿Cuáles?" rows="3"></textarea>
+                </div>
+
+                <h3 class="form-section-header">2. Datos del Animal</h3>
+
+                <div class="input-group">
+                    <label for="especie"><i class="fa-solid fa-paw"></i> Especie</label>
+                    <select id="especie" name="especie" required>
+                        <option value="" disabled selected>Selecciona la especie</option>
+                        <option value="perro">Perro</option>
+                        <option value="gato">Gato</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="foto_animal"><i class="fa-solid fa-camera"></i> Foto del animal</label>
+                    <input type="file" id="foto_animal" name="foto_animal" accept="image/png, image/jpeg">
+                </div>
+
+                <div class="input-group">
+                    <label for="edad_animal"><i class="fa-solid fa-cake-candles"></i> Edad aproximada</label>
+                    <input type="text" id="edad_animal" name="edad_animal" placeholder="Ej. Cachorro (2 meses), Adulto (3 años), Senior">
+                </div>
+
+                <div class="input-group">
+                    <label for="sexo"><i class="fa-solid fa-venus-mars"></i> Sexo</label>
+                    <select id="sexo" name="sexo" required>
+                        <option value="" disabled selected>Selecciona el sexo</option>
+                        <option value="macho">Macho</option>
+                        <option value="hembra">Hembra</option>
+                        <option value="no_se_sabe">No se sabe</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="raza"><i class="fa-solid fa-dog"></i> Tamaño / Raza</label>
+                    <input type="text" id="raza" name="raza" placeholder="Ej. Pequeño, Mediano, Grande / Mestizo..." required>
+                </div>
+
+                <div class="input-group">
+                    <label for="condicion"><i class="fa-solid fa-notes-medical"></i> Condición física</label>
+                    <input type="text" id="condicion" name="condicion" placeholder="Ej. herido, enfermo, desnutrido..." required>
+                </div>
+
+                <div class="input-group">
+                    <label for="comportamiento"><i class="fa-solid fa-heart-pulse"></i> Comportamiento</label>
+                    <input type="text" id="comportamiento" name="comportamiento" placeholder="Ej. agresivo, dócil, tímido..." required>
+                </div>
+
+                <div class="input-group">
+                    <label for="ubicacion_encontrado"><i class="fa-solid fa-location-arrow"></i> Ubicación donde fue encontrado</label>
+                    <div class="map-instruction">
+                        <i class="fa-solid fa-circle-info"></i> Haz clic en el mapa de la derecha para seleccionar la ubicación exacta
+                    </div>
+                    <div class="coordinates-display" id="coordeForm">
+                        <i class="fa-solid fa-map-marker-alt"></i> Haz clic en el mapa para marcar la ubicación
+                    </div>
+                    <input type="hidden" id="latitud" name="latitud">
+                    <input type="hidden" id="longitud" name="longitud">
+                    <input type="text" id="ubicacion_encontrado" name="ubicacion_encontrado" placeholder="Referencia adicional (opcional)">
+                </div>
+
+                <h3 class="form-section-header">3. Motivo de la Solicitud</h3>
+
+                <div class="input-group">
+                    <label for="motivo"><i class="fa-solid fa-circle-question"></i> Razón principal del apoyo</label>
+                    <textarea id="motivo" name="motivo" placeholder="Explica por qué solicitas el apoyo" rows="3" required></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="situacion"><i class="fa-solid fa-triangle-exclamation"></i> Situación actual del animal</label>
+                    <input type="text" id="situacion" name="situacion" placeholder="Ej. abandono, maltrato, accidente..." required>
+                </div>
+
+                <div class="input-group">
+                    <label for="tiempo_calle"><i class="fa-solid fa-clock"></i> Tiempo en la calle</label>
+                    <input type="text" id="tiempo_calle" name="tiempo_calle" placeholder="Ej. 2 días, varios meses, no se sabe">
+                </div>
+
+                <h3 class="form-section-header">4. Tipo de Apoyo Solicitado</h3>
+
+                <div class="input-group">
+                    <label><i class="fa-solid fa-hand-holding-heart"></i> Selecciona el apoyo que necesitas</label>
+                    <div class="checkbox-container">
+                        <label><input type="checkbox" name="apoyo[]" value="alimentacion"> Alimentación</label>
+                        <label><input type="checkbox" name="apoyo[]" value="atencion_veterinaria"> Atención Veterinaria (vacunas, cirugía, etc.)</label>
+                        <label><input type="checkbox" name="apoyo[]" value="esterilizacion"> Esterilización</label>
+                        <label><input type="checkbox" name="apoyo[]" value="refugio_temporal"> Refugio Temporal</label>
+                        <label><input type="checkbox" name="apoyo[]" value="adopcion"> Adopción</label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="otros_apoyos"><i class="fa-solid fa-circle-plus"></i> Otros apoyos</label>
+                    <input type="text" id="otros_apoyos" name="otros_apoyos" placeholder="Ej. transporte, medicamentos...">
+                </div>
+
+                <h3 class="form-section-header">5. Compromisos</h3>
+
+                <div class="input-group">
+                    <label><i class="fa-solid fa-file-signature"></i> Acuerdos de responsabilidad</label>
+                    <div class="checkbox-container">
+                        <label>
+                            <input type="checkbox" name="compromiso_cuidado" required>
+                            Confirmo que la información que proporcione es verificable y verdadera.
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-paper-plane"></i> Enviar Solicitud
+                </button>
+
+            </form>
+        </div>
+
+        <div class="map-container">
+            <div class="map-wrapper">
+                <div id="mapForm"></div>
+            </div>
+
+            <div class="casos-section">
+                <h2><i class="fa-solid fa-list-check"></i> Casos Registrados</h2>
+                <div class="table-wrapper">
+                    <table id="listaCasosTabla">
+                        <thead>
+                            <tr>
+                                <th>Solicitante</th>
+                                <th>Animal</th>
+                                <th>Raza</th>
+                                <th>Condición</th>
+                                <th>Latitud</th>
+                                <th>Longitud</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="empty-state">
+                                <td colspan="6">
+                                    <i class="fa-solid fa-inbox"></i>
+                                    <p>Aún no hay casos registrados</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="jssoli.js"></script>
+
+
+</body>
+</html>

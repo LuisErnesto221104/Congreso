@@ -1,0 +1,255 @@
+/* ===============================
+   ESTILOS GENERALES
+================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+body.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+    /* 🌄 Fondo con imagen */
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), 
+        url("Imagen\ de\ WhatsApp\ 2025-10-28\ a\ las\ 10.09.42_75647613.jpg") no-repeat center center fixed;
+
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ===============================
+   CONTENEDOR PRINCIPAL
+================================= */
+.login-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+}
+
+.login-box {
+    background: white;
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px 35px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 400px;
+    color: #fff;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===============================
+   CABECERA
+================================= */
+.login-header {
+    text-align: center;
+    margin-bottom: 25px;
+    /* Fondo solo para el encabezado */
+    background: url("conectatech3.png") no-repeat center center;
+    background-size: cover;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+.login-header h1 {
+    font-size: 1.9em;
+    color: transparent; /* Texto negro */
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+
+
+.login-header p {
+    color: #333;
+    font-size: 0.95em;
+}
+
+
+/* ===============================
+   TABS DE USUARIOS
+================================= */
+.login-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #5b247a;
+    background-color: #f3eaff;
+    transition: all 0.3s ease;
+}
+
+.tab-btn i {
+    margin-right: 6px;
+}
+
+.tab-btn:hover {
+    background-color: #e2d5ff;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #5b247a, #1bcedf);
+    color: white;
+    box-shadow: 0 4px 12px rgba(27, 206, 223, 0.4);
+}
+
+/* ===============================
+   FORMULARIOS
+================================= */
+.hidden {
+    display: none;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    font-weight: 600;
+    color: #444;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.input-group i {
+    margin-right: 8px;
+    color: #5b247a;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+    font-size: 0.95em;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #5b247a;
+    box-shadow: 0 0 5px rgba(91, 36, 122, 0.3);
+}
+
+/* Código de estudiante */
+.student-code-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.separator {
+    font-weight: bold;
+    color: #5b247a;
+}
+
+/* ===============================
+   BOTONES
+================================= */
+.btn-ingresar {
+    width: 100%;
+    background: linear-gradient(135deg, #5b247a, #1bcedf);
+    border: none;
+    color: white;
+    padding: 12px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-ingresar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(27, 206, 223, 0.4);
+}
+
+/* ===============================
+   MENSAJES Y LINKS
+================================= */
+.error-message {
+    color: #d63031;
+    font-size: 0.9em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.opciones-extra {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.opciones-extra a {
+    color: #5b247a;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: 0.3s;
+}
+
+.opciones-extra a:hover {
+    text-decoration: underline;
+}
+
+/* Registro invitado */
+.registro-link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.registro-link a {
+    color: #1bcedf;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.registro-link a:hover {
+    text-decoration: underline;
+}
+
+/* ===============================
+   RESPONSIVE
+================================= */
+@media (max-width: 480px) {
+    .login-box {
+        padding: 25px 20px;
+    }
+
+    .tab-btn {
+        font-size: 0.85em;
+        padding: 8px;
+    }
+
+    .student-code-group {
+        flex-direction: column;
+    }
+
+    .separator {
+        display: none;
+    }
+}

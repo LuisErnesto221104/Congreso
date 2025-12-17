@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Voluntarios - Patas Conectatech</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            color: #667eea;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        .input-group label i {
+            margin-right: 8px;
+            color: #667eea;
+            width: 20px;
+            text-align: center;
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="email"],
+        .input-group input[type="tel"],
+        .input-group input[type="number"],
+        .input-group input[type="date"],
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fafafa;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+        }
+
+        .btn-salir {
+            margin-top: 15px;
+            padding: 10px 25px;
+            background-color: #f8f9fa;
+            color: #555;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-salir:hover {
+            background-color: #ffffff;
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .btn-salir:active {
+            transform: translateY(0);
+        }
+
+        .radio-option:hover {
+            border-color: #667eea;
+            background-color: #f5f7ff;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            accent-color: #667eea;
+            cursor: pointer;
+        }
+
+        .radio-option.selected {
+            border-color: #667eea;
+            background-color: #f5f7ff;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .radio-label {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            flex: 1;
+        }
+
+        .radio-label strong {
+            color: #333;
+            font-size: 1em;
+        }
+
+        .radio-label small {
+            color: #666;
+            font-size: 0.85em;
+        }
+
+        .conditional-field {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f5f7ff;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .conditional-field.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+        }
+
+        .checkbox-option:hover {
+            border-color: #667eea;
+            background-color: #f5f7ff;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .info-box {
+            background-color: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #0c5a8a;
+        }
+
+        .info-box i {
+            margin-right: 8px;
+        }
+
+        /* VISTA DE CASOS */
+        .casos-view {
+            display: none;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .casos-view.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .casos-header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .casos-header h1 {
+            color: #667eea;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .casos-header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .casos-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .casos-map-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .casos-table-section h2 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .casos-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .casos-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .casos-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .casos-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .casos-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.9em;
+        }
+
+        .casos-table tbody tr:hover {
+            background-color: #f8f9ff;
+        }
+
+        .casos-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px !important;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.6em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .form-content {
+                padding: 25px;
+            }
+
+            body {
+                padding: 20px 10px;
+            }
+
+            .map-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="formContainer">
+
+        <div class="header">
+            <h1><i class="fa-solid fa-hands-holding-circle"></i> Registro de Voluntarios</h1>
+            <p>Únete a nuestra comunidad y ayuda a animales en situación de calle</p>
+        </div>
+
+        <div class="form-content">
+
+            <div class="info-box">
+                <i class="fa-solid fa-circle-info"></i>
+                <strong>¡Gracias por tu interés!</strong> Completa este formulario. Al finalizar, podrás ver el mapa de
+                casos activos.
+            </div>
+
+            <form id="formVoluntario">
+
+                <h2 class="section-title"><i class="fa-solid fa-user"></i> Datos Personales</h2>
+
+                <div class="input-group">
+                    <label for="nombre_completo"><i class="fa-solid fa-id-card"></i> Nombre completo</label>
+                    <input type="text" id="nombre_completo" name="nombre_completo" placeholder="Nombre y apellidos"
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label for="fecha_nacimiento"><i class="fa-solid fa-cake-candles"></i> Fecha de nacimiento</label>
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email"><i class="fa-solid fa-envelope"></i> Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="telefono"><i class="fa-solid fa-phone"></i> Teléfono / WhatsApp</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Número de contacto" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="direccion"><i class="fa-solid fa-location-dot"></i> Dirección</label>
+                    <textarea id="direccion" name="direccion" placeholder="Calle, número, colonia, ciudad, estado"
+                        rows="2" required></textarea>
+                </div>
+
+                <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Tipo de Voluntario</h2>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-heart"></i> Selecciona tu perfil</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="tipo_voluntario" value="ciudadano"
+                                onchange="mostrarCampos(this.value)" required>
+                            <div class="radio-label"><strong>👤 Ciudadano</strong><small>Persona interesada en
+                                    ayudar</small></div>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="tipo_voluntario" value="estudiante_veterinaria"
+                                onchange="mostrarCampos(this.value)" required>
+                            <div class="radio-label"><strong>📚 Estudiante de Veterinaria</strong><small>Cursando
+                                    carrera afín</small></div>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="tipo_voluntario" value="veterinario"
+                                onchange="mostrarCampos(this.value)" required>
+                            <div class="radio-label"><strong>🩺 Veterinario(a) Titulado(a)</strong><small>Con cédula
+                                    profesional</small></div>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="tipo_voluntario" value="otro_profesional"
+                                onchange="mostrarCampos(this.value)" required>
+                            <div class="radio-label"><strong>💼 Otro Profesional</strong><small>Otras áreas</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="conditional-field" id="campos_estudiante">
+                    <div class="input-group">
+                        <label for="universidad"><i class="fa-solid fa-graduation-cap"></i> Universidad /
+                            Instituto</label>
+                        <input type="text" id="universidad" name="universidad" placeholder="Nombre de la institución">
+                    </div>
+                    <div class="input-group">
+                        <label for="semestre"><i class="fa-solid fa-book-open"></i> Semestre actual</label>
+                        <input type="number" id="semestre" name="semestre" placeholder="Ej. 5" min="1" max="12">
+                    </div>
+                </div>
+
+                <div class="conditional-field" id="campos_veterinario">
+                    <div class="input-group">
+                        <label for="cedula"><i class="fa-solid fa-certificate"></i> Cédula profesional</label>
+                        <input type="text" id="cedula" name="cedula" placeholder="Número de cédula">
+                    </div>
+                    <div class="input-group">
+                        <label for="especialidad"><i class="fa-solid fa-stethoscope"></i> Especialidad
+                            (opcional)</label>
+                        <input type="text" id="especialidad" name="especialidad" placeholder="Ej. Cirugía, Clínica...">
+                    </div>
+                    <div class="input-group">
+                        <label for="anos_experiencia"><i class="fa-solid fa-clock"></i> Años de experiencia</label>
+                        <input type="number" id="anos_experiencia" name="anos_experiencia" placeholder="Años trabajando"
+                            min="0">
+                    </div>
+                </div>
+
+                <div class="conditional-field" id="campos_otro">
+                    <div class="input-group">
+                        <label for="profesion"><i class="fa-solid fa-briefcase"></i> Profesión / Ocupación</label>
+                        <input type="text" id="profesion" name="profesion" placeholder="¿A qué te dedicas?">
+                    </div>
+                    <div class="input-group">
+                        <label for="habilidades"><i class="fa-solid fa-lightbulb"></i> Habilidades a aportar</label>
+                        <textarea id="habilidades" name="habilidades" placeholder="Diseño, redes, transporte..."
+                            rows="2"></textarea>
+                    </div>
+                </div>
+
+                <h2 class="section-title"><i class="fa-solid fa-calendar-days"></i> Disponibilidad</h2>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-clock"></i> ¿Cuándo puedes colaborar?</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-option"><input type="checkbox" name="disponibilidad[]"
+                                value="entre_semana"> Entre semana</label>
+                        <label class="checkbox-option"><input type="checkbox" name="disponibilidad[]"
+                                value="fines_semana"> Fines de semana</label>
+                        <label class="checkbox-option"><input type="checkbox" name="disponibilidad[]" value="mananas">
+                            Mañanas</label>
+                        <label class="checkbox-option"><input type="checkbox" name="disponibilidad[]" value="tardes">
+                            Tardes</label>
+                        <label class="checkbox-option"><input type="checkbox" name="disponibilidad[]"
+                                value="emergencias"> Solo emergencias</label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="horas_mes"><i class="fa-solid fa-hourglass-half"></i> Horas al mes</label>
+                    <select id="horas_mes" name="horas_mes" required>
+                        <option value="" disabled selected>Selecciona...</option>
+                        <option value="1-5">1-5 horas</option>
+                        <option value="6-10">6-10 horas</option>
+                        <option value="11-20">11-20 horas</option>
+                        <option value="20+">Más de 20 horas</option>
+                    </select>
+                </div>
+
+                <h2 class="section-title"><i class="fa-solid fa-list-check"></i> Actividades de Interés</h2>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-hand-holding-heart"></i> ¿En qué te gustaría colaborar?</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-option"><input type="checkbox" name="actividades[]" value="rescate">
+                            Rescate de animales</label>
+                        <label class="checkbox-option"><input type="checkbox" name="actividades[]"
+                                value="atencion_medica"> Atención médica</label>
+                        <label class="checkbox-option"><input type="checkbox" name="actividades[]" value="alimentacion">
+                            Alimentación y cuidados</label>
+                        <label class="checkbox-option"><input type="checkbox" name="actividades[]" value="adopcion">
+                            Adopciones</label>
+                        <label class="checkbox-option"><input type="checkbox" name="actividades[]" value="transporte">
+                            Transporte</label>
+                        <label class="checkbox-option"><input type="checkbox" name="actividades[]"
+                                value="redes_sociales"> Redes sociales</label>
+                    </div>
+                </div>
+
+                <h2 class="section-title"><i class="fa-solid fa-paw"></i> Experiencia</h2>
+                <div class="input-group">
+                    <label for="experiencia_animales"><i class="fa-solid fa-clipboard"></i> Cuéntanos tu
+                        experiencia</label>
+                    <textarea id="experiencia_animales" name="experiencia_animales"
+                        placeholder="¿Has tenido mascotas? ¿Voluntariados previos?" rows="3"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="motivacion"><i class="fa-solid fa-heart-pulse"></i> Motivación</label>
+                    <textarea id="motivacion" name="motivacion" placeholder="¿Por qué quieres unirte?" rows="3"
+                        required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-paper-plane"></i> Enviar Solicitud de Voluntario
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="casos-view" id="casosView">
+        <div class="casos-header">
+            <h1><i class="fa-solid fa-map-location-dot"></i> Casos Registrados en el Sistema</h1>
+            <p>Estos son todos los amnimales que necesitan ayuda.</p>
+
+            <button onclick="window.location.href='index.html'" class="btn-salir">
+                <i class="fa-solid fa-arrow-left"></i> Salir al Inicio
+            </button>
+        </div>
+
+        <div class="casos-content">
+            <div class="casos-map-container" id="mapCasos"></div>
+
+            <div class="casos-table-section">
+                <h2><i class="fa-solid fa-list-check"></i> Listado de Casos</h2>
+                <div class="casos-table-wrapper">
+                    <table class="casos-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Especie</th>
+                                <th>Condición</th>
+                                <th>Ubicación</th>
+                            </tr>
+                        </thead>
+                        <tbody id="casosViewTableBody">
+                            <tr class="empty-state">
+                                <td colspan="4">
+                                    <i class="fa-solid fa-inbox"></i>
+                                    <p>Cargando casos desde el servidor...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="controlador.js"></script>
+
+
+</body>
+
+</html>

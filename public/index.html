@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Patas Conectatech</title>
+
+    <link rel="stylesheet" href="estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body class="login-body">
+
+    <main class="login-container">
+        <div class="login-box">
+
+            <div class="login-header">
+                <h1>Patas Conectatech</h1>
+                <p>Bienvenido, ingresa a la plataforma</p>
+            </div>
+
+            <div class="login-tabs">
+                <button type="button" id="tabSolicitante" class="tab-btn active">
+                    <i class="fa-solid fa-user-graduate"></i> Solicitante
+                </button>
+                <button type="button" id="tabVoluntario" class="tab-btn">
+                    <i class="fa-solid fa-hands-helping"></i> Voluntario
+                </button>
+            </div>
+
+            <form id="loginFormSolicitante" action="/login-solicitante" method="POST">
+                <div class="input-group">
+                    <label for="usuarioSolicitante"><i class="fa-solid fa-user"></i> Usuario</label>
+                    <input type="text" id="usuarioSolicitante" name="usuario" placeholder="Ingresa tu usuario" required>
+                </div>
+                <div class="input-group">
+                    <label for="passwordSolicitante"><i class="fa-solid fa-lock"></i> Contraseña</label>
+                    <input type="password" id="passwordSolicitante" name="password" placeholder="Ingresa tu contraseña"
+                        required>
+                </div>
+                <p id="errorSolicitante" class="error-message"></p>
+                <button type="submit" class="btn-ingresar">Ingresar como Solicitante</button>
+                <p class="crear-cuenta-text">¿No tienes cuenta? 
+                    <button type="button" id="btnCrearSolicitante" class="btn-ingresar btn-small">Crear cuenta</button>
+                </p>
+            </form>
+
+            <form id="registerFormSolicitante" action="/registro-solicitante" method="POST" class="hidden">
+                <div class="input-group">
+                    <label for="usuarioRegSolicitante"><i class="fa-solid fa-user"></i> Usuario</label>
+                    <input type="text" id="usuarioRegSolicitante" name="usuario" placeholder="Crea tu usuario" required>
+                </div>
+                <div class="input-group">
+                    <label for="passwordRegSolicitante"><i class="fa-solid fa-lock"></i> Contraseña</label>
+                    <input type="password" id="passwordRegSolicitante" name="password" placeholder="Crea tu contraseña"
+                        required>
+                </div>
+                <p id="errorRegSolicitante" class="error-message"></p>
+                <button type="submit" class="btn-ingresar">Registrar Solicitante</button>
+                <p class="crear-cuenta-text">¿Ya tienes cuenta? 
+                    <button type="button" id="btnVolverLoginSolicitante" class="btn-ingresar btn-small">Volver al login</button>
+                </p>
+            </form>
+
+            <form id="loginFormVoluntario" action="/login-voluntario" method="POST" class="hidden">
+                <div class="input-group">
+                    <label for="usuarioVoluntario"><i class="fa-solid fa-user"></i> Usuario</label>
+                    <input type="text" id="usuarioVoluntario" name="usuario" placeholder="Ingresa tu usuario" required>
+                </div>
+                <div class="input-group">
+                    <label for="passwordVoluntario"><i class="fa-solid fa-lock"></i> Contraseña</label>
+                    <input type="password" id="passwordVoluntario" name="password" placeholder="Ingresa tu contraseña"
+                        required>
+                </div>
+                <p id="errorVoluntario" class="error-message"></p>
+                <button type="submit" class="btn-ingresar">Ingresar como Voluntario</button>
+                <p class="crear-cuenta-text">¿No tienes cuenta? 
+                    <button type="button" id="btnCrearVoluntario" class="btn-ingresar btn-small">Crear cuenta</button>
+                </p>
+            </form>
+
+            <form id="registerFormVoluntario" action="/registro-voluntario" method="POST" class="hidden">
+                <div class="input-group">
+                    <label for="usuarioRegVoluntario"><i class="fa-solid fa-user"></i> Usuario</label>
+                    <input type="text" id="usuarioRegVoluntario" name="usuario" placeholder="Crea tu usuario" required>
+                </div>
+                <div class="input-group">
+                    <label for="passwordRegVoluntario"><i class="fa-solid fa-lock"></i> Contraseña</label>
+                    <input type="password" id="passwordRegVoluntario" name="password" placeholder="Crea tu contraseña"
+                        required>
+                </div>
+                <p id="errorRegVoluntario" class="error-message"></p>
+                <button type="submit" class="btn-ingresar">Registrar Voluntario</button>
+                <p class="crear-cuenta-text">¿Ya tienes cuenta? 
+                    <button type="button" id="btnVolverLoginVoluntario" class="btn-ingresar btn-small">Volver al login</button>
+                </p>
+            </form>
+
+            <div class="opciones-extra">
+                <a href="#" class="olvide-pass">¿Olvidaste tu contraseña?</a>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const tabSolicitante = document.getElementById('tabSolicitante');
+        const tabVoluntario = document.getElementById('tabVoluntario');
+        const formLoginS = document.getElementById('loginFormSolicitante');
+        const formRegS = document.getElementById('registerFormSolicitante');
+        const formLoginV = document.getElementById('loginFormVoluntario');
+        const formRegV = document.getElementById('registerFormVoluntario');
+
+        tabSolicitante.addEventListener('click', () => {
+            tabSolicitante.classList.add('active');
+            tabVoluntario.classList.remove('active');
+            formLoginS.classList.remove('hidden');
+            formRegS.classList.add('hidden');
+            formLoginV.classList.add('hidden');
+            formRegV.classList.add('hidden');
+        });
+
+        tabVoluntario.addEventListener('click', () => {
+            tabVoluntario.classList.add('active');
+            tabSolicitante.classList.remove('active');
+            formLoginV.classList.remove('hidden');
+            formRegV.classList.add('hidden');
+            formLoginS.classList.add('hidden');
+            formRegS.classList.add('hidden');
+        });
+
+        document.getElementById('btnCrearSolicitante').addEventListener('click', () => {
+            formLoginS.classList.add('hidden');
+            formRegS.classList.remove('hidden');
+        });
+        document.getElementById('btnVolverLoginSolicitante').addEventListener('click', () => {
+            formRegS.classList.add('hidden');
+            formLoginS.classList.remove('hidden');
+        });
+
+        document.getElementById('btnCrearVoluntario').addEventListener('click', () => {
+            formLoginV.classList.add('hidden');
+            formRegV.classList.remove('hidden');
+        });
+        document.getElementById('btnVolverLoginVoluntario').addEventListener('click', () => {
+            formRegV.classList.add('hidden');
+            formLoginV.classList.remove('hidden');
+        });
+    </script>
+
+</body>
+</html>
